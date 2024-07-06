@@ -6,7 +6,7 @@
 /*   By: ajorge-p <ajorge-p@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:07:59 by ajorge-p          #+#    #+#             */
-/*   Updated: 2024/07/04 19:06:45 by ajorge-p         ###   ########.fr       */
+/*   Updated: 2024/07/06 11:40:23 by ajorge-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ int	check_flag(char *arg)
 
 void print_echo(char **cmd, int n_flag, int i)
 {
+	int j;
+
 	if(!cmd[i])
 	{
 		if(!n_flag)
@@ -36,11 +38,19 @@ void print_echo(char **cmd, int n_flag, int i)
 	}
 	while(cmd[i])
 	{
-		printf("%s", cmd[i]);
+		j = 0;
+		while(cmd[i][j])
+		{
+			if(cmd[i][j] == '"')
+				;
+			else 
+				write(1, &cmd[i][j], 1);
+			j++;
+		}
 		if(cmd[i + 1])
-			printf(" ");
+			write(1, " ", 1);
 		else if(!cmd[i + 1] && !n_flag)
-			printf("\n");
+			write(1, "\n", 1);
 		i++;
 	}
 }
